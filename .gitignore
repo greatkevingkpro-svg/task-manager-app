@@ -1,0 +1,13 @@
+# Backend
+backend/target/
+backend/.project
+backend/.classpath
+
+# Mobile
+mobile/node_modules/
+mobile/.expo/
+mobile/.expo-shared/
+
+# General
+.DS_Store
+.cursor/  # Optional: ignore if you don't want to sync your AI history/notes
