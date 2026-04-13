@@ -1,13 +1,18 @@
 # Backend
+# Maven build output
 backend/target/
+# IDE project metadata (Eclipse-style)
 backend/.project
 backend/.classpath
 
 # Mobile
+# Node dependencies (very large, always generated)
 mobile/node_modules/
+# Expo local cache/settings
 mobile/.expo/
 mobile/.expo-shared/
 
 # General
 .DS_Store
+# Cursor local data (optional, keep out of repo by default)
 .cursor/  # Optional: ignore if you don't want to sync your AI history/notes

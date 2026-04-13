@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller for task CRUD operations.
+ */
 @RestController
 @RequestMapping("/api/tasks")
 @CrossOrigin(origins = "*")
@@ -29,11 +32,18 @@ public class TaskController {
         this.taskRepository = taskRepository;
     }
 
+    /**
+     * Returns all tasks.
+     */
     @GetMapping
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
+    /**
+     * Creates a new task.
+     * If status is not provided, default it to TODO.
+     */
     @PostMapping
     public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         if (task.getStatus() == null || task.getStatus().isBlank()) {
@@ -44,6 +54,9 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
 
+    /**
+     * Marks an existing task as DONE.
+     */
     @PatchMapping("/{id}/complete")
     public ResponseEntity<Task> completeTask(@PathVariable String id) {
         Optional<Task> existingTask = taskRepository.findById(id);
@@ -57,6 +70,9 @@ public class TaskController {
         return ResponseEntity.ok(updatedTask);
     }
 
+    /**
+     * Deletes a task by ID.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable String id) {
         if (!taskRepository.existsById(id)) {
@@ -67,6 +83,9 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Fallback delete endpoint for environments where DELETE requests are blocked.
+     */
     @PostMapping("/{id}/delete")
     public ResponseEntity<Void> deleteTaskFallback(@PathVariable String id) {
         return deleteTask(id);

@@ -12,17 +12,23 @@ import {
 import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 
+// Backend base URL. For Expo web, this should point to your machine IP + backend port.
 const API_URL = "http://10.50.25.43:8080/api/tasks";
 
 export default function App() {
+  // Task list returned by the backend.
   const [tasks, setTasks] = useState([]);
+  // Form fields for creating a task.
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("TODO");
+  // UI loading flags.
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  // Tracks which task is being completed/deleted to disable repeated taps.
   const [actionTaskId, setActionTaskId] = useState(null);
 
+  // Fetches all tasks from backend and updates list state.
   const fetchTasks = async () => {
     setLoading(true);
     try {
@@ -35,6 +41,7 @@ export default function App() {
     }
   };
 
+  // Creates a new task using the form values.
   const createTask = async () => {
     if (!title.trim()) {
       return;
@@ -59,10 +66,12 @@ export default function App() {
     }
   };
 
+  // Initial load on first render.
   useEffect(() => {
     fetchTasks();
   }, []);
 
+  // Marks a task as completed and updates local state for instant feedback.
   const completeTask = async (taskId) => {
     if (!taskId) {
       return;
@@ -83,6 +92,7 @@ export default function App() {
     }
   };
 
+  // Optimistic delete: remove from UI first, then rollback if API fails.
   const deleteTask = async (taskId) => {
     if (!taskId) {
       return;
@@ -110,6 +120,7 @@ export default function App() {
     }
   };
 
+  // Renders one task card in the FlatList.
   const renderTask = ({ item }) => (
     <View style={styles.taskCard}>
       <Text style={[styles.taskTitle, item.status === "DONE" && styles.taskTitleDone]}>
@@ -193,6 +204,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  // Page-level layout styles.
   container: {
     flex: 1,
     backgroundColor: "#f7f8fa",
@@ -205,6 +217,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: "#111827",
   },
+  // Create task form styles.
   form: {
     backgroundColor: "#ffffff",
     borderRadius: 10,
@@ -232,6 +245,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontWeight: "600",
   },
+  // Task list section styles.
   sectionTitle: {
     fontSize: 20,
     fontWeight: "600",

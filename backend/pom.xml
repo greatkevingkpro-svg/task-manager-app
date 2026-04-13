@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Maven coordinates and build setup for the Spring Boot backend. -->
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -17,27 +18,33 @@
     <description>Simple Task Manager backend</description>
 
     <properties>
+        <!-- Java runtime version used by Maven builds. -->
         <java.version>17</java.version>
     </properties>
 
     <dependencies>
+        <!-- REST API support (Spring MVC + embedded server). -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- MongoDB integration through Spring Data. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
+        <!-- Bean validation annotations like @NotBlank. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!-- Optional utility for reducing boilerplate (not currently used). -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- Testing utilities for backend unit/integration tests. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,6 +54,7 @@
 
     <build>
         <plugins>
+            <!-- Enables mvn spring-boot:run and executable jars. -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

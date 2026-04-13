@@ -4,20 +4,28 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * MongoDB document representing a task in the application.
+ */
 @Document(collection = "tasks")
 public class Task {
 
+    // MongoDB primary key.
     @Id
     private String id;
 
+    // Human-readable task title. Required on create.
     @NotBlank(message = "Title is required")
     private String title;
 
+    // Optional detail text for the task.
     private String description;
 
+    // Current task state (e.g., TODO, IN_PROGRESS, DONE).
     private String status;
 
     public Task() {
+        // Required by Spring Data / Jackson.
     }
 
     public Task(String title, String description, String status) {
